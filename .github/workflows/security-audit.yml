@@ -1,0 +1,40 @@
+name: Security Audit
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git curl
+          # Install Gitleaks
+          curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64 \
+            -o gitleaks
+          chmod +x gitleaks
+          sudo mv gitleaks /usr/local/bin/
+          # Install GitGuardian CLI (optional)
+          pip install ggshield || true
+
+      - name: Run Security Scan
+        run: |
+          bash ./security-scan.sh
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-results
+          path: results/

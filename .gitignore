@@ -1,0 +1,25 @@
+# Scan output 
+results/
+logs/
+
+# Python virtual envirpnments
+venv/
+.env/
+*.pyc
+__pycache__/
+
+# Temporary files
+*.tmp
+*.log
+*.cache
+
+# OS-specific junk
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
+
+# Trufflehog binary 
+trufflehog
