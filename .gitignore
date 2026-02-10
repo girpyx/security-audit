@@ -1,4 +1,5 @@
 # Scan output 
+repos/
 results/
 logs/
 
@@ -9,6 +10,7 @@ venv/
 __pycache__/
 
 # Temporary files
+*.swp
 *.tmp
 *.log
 *.cache
